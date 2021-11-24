@@ -12,7 +12,7 @@ class WebSocket {
       this.ws.onopen = (event: ws.Event): void => {
         this.sendMessage("{SubScribe Server Name} Completely Connection");
 
-        // connection하면 listener 등록.
+        // * connection하면 listener 등록.
         this.onMessage();
         this.onError();
       };
