@@ -6,6 +6,8 @@
 ### 개발 환경
 * node 14+
 * typescript
+* nodemon
+* dotenv
 * ws
 * express
 #
