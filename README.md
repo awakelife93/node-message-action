@@ -20,7 +20,7 @@
 * 실제 Message 템플릿 정해서 구현
 #
 ### 실행
-* (please confirm .env file / .env configuration is same src/env file)
+* (please confirm .env file / .env configuration is same src/lib/env file)
 * npm install
 * npm start (nodemon을 쓰고 개발중이니, 없을 경우 nodemon -> node)
 
