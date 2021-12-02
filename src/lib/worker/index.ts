@@ -1,16 +1,18 @@
 import env from "../env";
 import expressController from "../protocol/express";
 import WebSocket from "../protocol/ws";
+import redis from "../redis";
 
-const work = () => {
-  /**
-   * @description
-   * Connect Socket
-   */
+const work = async () => {
+  // * connect redis
+  await redis.connectRedis();
+
   if (env.IS_SEND_TO_SOCKET_SUBSCRIBE) {
-    WebSocket.connect();
+    // * connect web socket server
+    await WebSocket.connect();
   } else {
-    expressController();
+    // * connect http server
+    await expressController();
   }
 };
 

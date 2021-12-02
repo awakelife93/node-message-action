@@ -1,5 +1,6 @@
 import _ from "lodash";
 import ws from "ws";
+import actionController from "../../action";
 import env from "../../env";
 
 class WebSocket {
@@ -22,8 +23,12 @@ class WebSocket {
   onMessage = (): void => {
     if (!_.isEmpty(this.ws)) {
       this.ws.onmessage = (messageEvent: ws.MessageEvent): void => {
-        console.log(`SubScribe Message ${messageEvent.data}`);
+        // type ws.Data to string
+        const message: string = String(messageEvent.data);
+        console.log(`SubScribe Message ${message}`);
         this.sendMessage("{SubScribe Server Name} Completely Get Message");
+
+        actionController(message);
       };
     }
   };

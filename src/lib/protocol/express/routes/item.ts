@@ -1,10 +1,11 @@
 import { CommonWorkerRouteIE } from ".";
+import { CommonAction } from "../../../action";
 
 const CommonWorkerRoutes: CommonWorkerRouteIE[] = [
   {
     path: "/deleteUserToken",
     method: "post",
-    next: deleteUserToken,
+    next: CommonAction.deleteUserToken,
   },
 ];
 
