@@ -1,3 +1,4 @@
+import _ from "lodash";
 import * as redis from "redis";
 import { promisify } from "util";
 import env from "../env";
@@ -9,7 +10,7 @@ class Redis {
    * 레디스 연결
    * @returns {void}
    */
-  async connectRedis() {
+  connectRedis = async (): Promise<void> => {
     try {
       this.client = await redis.createClient({
         host: env.REDIS_HOST,
@@ -25,7 +26,7 @@ class Redis {
    * @param {string} key
    * @returns {string} token
    */
-  get(key: string) {
+  get = (key: string): Promise<string> => {
     const _get = promisify(this.client.get).bind(this.client);
     return _get(key);
   }
@@ -36,8 +37,9 @@ class Redis {
    * @param {string} value
    * @returns {void}
    */
-  set(key: string, value: string) {
+  set = (key: string, value: string): void => {
     this.client.set(key, value);
+    console.log(`============> redis set ${key} / ${value}`);
   }
 
   /**
@@ -46,8 +48,31 @@ class Redis {
    * @param {string} value
    * @returns {void}
    */
-  remove(key: string) {
+  remove = (key: string): void => {
     this.client.del(key);
+    console.log(`============> redis remove ${key}`);
+  }
+
+  /**
+   * 전체 키를 얻어온다.
+   * @returns {Promise<string[]>}
+   */
+  allKeys = (): Promise<string[]> => {
+    const _keys = promisify(this.client.keys).bind(this.client);
+    return _keys("*");
+  }
+
+  /**
+   * FIFO
+   * @returns {Promise<string[]>}
+   */
+  firstQueueItemRemove = async () => {
+    const keys = await this.allKeys();
+    
+    if (!_.isEmpty(keys)) {
+      const queue = keys.shift();
+      this.remove(queue);
+    }
   }
 }
 
