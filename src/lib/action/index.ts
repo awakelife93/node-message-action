@@ -25,22 +25,24 @@ export const CommonAction: CommonActionIE = {
 
 const createActionAndParams = (action: string): CreateActionAndParamsIE => {
   const parse = action.split("/");
-  
+
   if (_.isEmpty(parse)) {
     throw new Error(CommonEnum.ErrorStatus.SEND_WRONG_SQS_URL);
   }
-  
+
   return {
     actionName: parse.shift(),
-    keys: [ ...parse ],
-  }
+    keys: [...parse],
+  };
 };
 
 const actionController = (action: string): void => {
   const { actionName, keys } = createActionAndParams(action);
 
   if (_.isFunction(CommonAction[actionName])) {
-    console.log(`Action Calls ${actionName} / key = ${_.isEmpty(keys) ? '없음' : keys}`);
+    console.log(
+      `Action Calls ${actionName} / key = ${_.isEmpty(keys) ? "없음" : keys}`,
+    );
     CommonAction[actionName](keys);
   } else {
     throw new Error(CommonEnum.ErrorStatus.EMPTY_ACTION);

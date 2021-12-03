@@ -19,7 +19,7 @@ class Redis {
     } catch (e) {
       console.log(`connectRedis Connect Failed!! ${e}`);
     }
-  }
+  };
 
   /**
    * key를 통해 Token을 받아온다.
@@ -29,7 +29,7 @@ class Redis {
   get = (key: string): Promise<string> => {
     const _get = promisify(this.client.get).bind(this.client);
     return _get(key);
-  }
+  };
 
   /**
    * key - value Token Insert
@@ -40,7 +40,7 @@ class Redis {
   set = (key: string, value: string): void => {
     this.client.set(key, value);
     console.log(`============> redis set ${key} / ${value}`);
-  }
+  };
 
   /**
    * key를 통해 Token을 삭제한다.
@@ -51,7 +51,7 @@ class Redis {
   remove = (key: string): void => {
     this.client.del(key);
     console.log(`============> redis remove ${key}`);
-  }
+  };
 
   /**
    * 전체 키를 얻어온다.
@@ -60,7 +60,7 @@ class Redis {
   allKeys = (): Promise<string[]> => {
     const _keys = promisify(this.client.keys).bind(this.client);
     return _keys("*");
-  }
+  };
 
   /**
    * FIFO
@@ -68,12 +68,12 @@ class Redis {
    */
   firstQueueItemRemove = async () => {
     const keys = await this.allKeys();
-    
+
     if (!_.isEmpty(keys)) {
       const queue = keys.shift();
       this.remove(queue);
     }
-  }
+  };
 }
 
 export default new Redis();
