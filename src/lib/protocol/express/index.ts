@@ -1,5 +1,5 @@
 import cors from "cors";
-import express from "express";
+import express, { Request, Response } from "express";
 import http from "http";
 import _ from "lodash";
 import path from "path";
@@ -36,9 +36,14 @@ const createRoute = (app: express.Application): void => {
     app[CommonWorkerRoute.method](
       CommonWorkerRoute.path,
       middlewareController,
-      // todo: refactoring
-      async (req, res) => {
-        const result = await CommonWorkerRoute.next(req, res);
+      async (req: Request, res: Response) => {
+        const params = req.body.params ?? "";
+        const action = req.route.path.replace("/", "");
+        const result = await CommonWorkerRoute.next({
+          action,
+          params
+        });
+
         res.status(200);
         res.send(result);
       },

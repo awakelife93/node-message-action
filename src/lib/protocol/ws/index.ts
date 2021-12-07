@@ -28,7 +28,9 @@ class WebSocket {
         console.log(`SubScribe Message ${message}`);
         this.sendMessage("{SubScribe Server Name} Completely Get Message");
 
-        actionController(message);
+        actionController({
+          action: message
+        });
       };
     }
   };
