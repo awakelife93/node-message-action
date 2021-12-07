@@ -24,17 +24,19 @@ export const createHttpParams = (params: string): string[] => {
 };
 
 export const createActionItems = (action: string, params: string): CreateActionAndParamsIE => {
+  let actionName = "", keys: string[] = [];
+  
   if (env.IS_SEND_TO_SOCKET_SUBSCRIBE) {
     const actionItem = createWSParams(action);
-
-    return {
-      actionName: actionItem.actionName,
-      keys: actionItem.keys
-    }
+    actionName = actionItem.actionName;
+    keys = [ ...actionItem.keys ];
   } else {
-    return {
-      actionName: action,
-      keys: createHttpParams(params)
-    }
+    actionName = action;
+    keys = [ ...createHttpParams(params) ];
+  }
+  
+  return {
+    actionName,
+    keys
   }
 };
