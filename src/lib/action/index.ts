@@ -5,7 +5,6 @@ import ws from "../protocol/ws";
 import redis from "../redis";
 import { CreateActionAndParamsIE, createActionItems } from "./preprocessor";
 
-// todo: 지울 게 없을때 로직 개발
 interface CommonActionIE {
   [functionName: string]: Function;
 }
@@ -18,6 +17,7 @@ export const CommonAction: CommonActionIE = {
         await redis.remove(key);
       });
     }
+    
     return responseController("call deleteUserToken");
   },
 };
