@@ -6,8 +6,7 @@ import path from "path";
 import actionController from "../../action";
 import env from "../../env";
 import middlewareController from "./middleware";
-import { CommonWorkerRouteIE } from "./routes";
-import CommonWorkerRoutes from "./routes/item";
+import CommonWorkerRoutes, { CommonWorkerRouteIE } from "./routes";
 
 const expressController = (): http.Server => {
   const app: express.Application = createExpress();
