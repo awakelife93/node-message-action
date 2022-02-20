@@ -1,9 +1,11 @@
+import express from "express";
+
 const middlewareController = (
-  req: Express.Request,
-  res: Express.Response,
+  request: express.Request,
+  response: express.Response,
   next: Function,
 ) => {
-  next(req, res);
+  next(request, response);
 };
 
 export default middlewareController;

@@ -16,8 +16,8 @@ class Redis {
         host: env.REDIS_HOST,
         port: Number(env.REDIS_PORT),
       });
-    } catch (e) {
-      console.log(`connectRedis Connect Failed!! ${e}`);
+    } catch (error: unknown) {
+      console.log(`connectRedis Connect Failed!! ${error}`);
     }
   };
 
@@ -39,7 +39,6 @@ class Redis {
    */
   set = (key: string, value: string): void => {
     this.client.set(key, value);
-    console.log(`============> redis set ${key} / ${value}`);
   };
 
   /**
@@ -50,7 +49,6 @@ class Redis {
    */
   remove = (key: string): void => {
     this.client.del(key);
-    console.log(`============> redis remove ${key}`);
   };
 
   /**

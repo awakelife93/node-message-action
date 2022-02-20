@@ -37,10 +37,10 @@ const createRoute = (app: express.Application): void => {
       CommonWorkerRoute.path,
       middlewareController,
       // todo: refactoring
-      async (req, res) => {
-        const result = await CommonWorkerRoute.next(req, res);
-        res.status(200);
-        res.send(result);
+      async (request: express.Request, response: express.Response) => {
+        const result = await CommonWorkerRoute.next(request, response);
+        response.status(200);
+        response.send(result);
       },
     );
   });
