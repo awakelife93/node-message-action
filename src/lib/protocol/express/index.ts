@@ -1,12 +1,12 @@
 import cors from "cors";
-import express from "express";
+import express, { Request, Response } from "express";
 import http from "http";
 import _ from "lodash";
 import path from "path";
+import actionController from "../../action";
 import env from "../../env";
 import middlewareController from "./middleware";
-import { CommonWorkerRouteIE } from "./routes";
-import CommonWorkerRoutes from "./routes/item";
+import CommonWorkerRoutes, { CommonWorkerRouteIE } from "./routes";
 
 const expressController = (): http.Server => {
   const app: express.Application = createExpress();
@@ -36,9 +36,14 @@ const createRoute = (app: express.Application): void => {
     app[CommonWorkerRoute.method](
       CommonWorkerRoute.path,
       middlewareController,
-      // todo: refactoring
-      async (request: express.Request, response: express.Response) => {
-        const result = await CommonWorkerRoute.next(request, response);
+      async (request: Request, response: Response) => {
+        const params = request.body.params ?? "";
+        const action = request.route.path.replace("/", "");
+        const result = await actionController({
+          action,
+          params,
+        });
+
         response.status(200);
         response.send(result);
       },

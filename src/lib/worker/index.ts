@@ -9,9 +9,11 @@ const work = async () => {
 
   if (env.IS_SEND_TO_SOCKET_SUBSCRIBE) {
     // * connect web socket server
+    console.log('StateFul Connect');
     await WebSocket.connect();
   } else {
     // * connect http server
+    console.log('StateLess Connect');
     await expressController();
   }
 };

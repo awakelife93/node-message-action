@@ -48,7 +48,10 @@ class Redis {
    * @returns {void}
    */
   remove = (key: string): void => {
-    this.client.del(key);
+    if (!_.isEmpty(key)) {
+      this.client.del(key);
+      console.log(`============> redis remove ${key}`);
+    }
   };
 
   /**

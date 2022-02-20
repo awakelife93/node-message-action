@@ -1,51 +1,52 @@
 import _ from "lodash";
 import CommonEnum from "../enum";
+import env from "../env";
+import ws from "../protocol/ws";
 import redis from "../redis";
+import { CreateActionAndParamsIE, createActionItems } from "./preprocessor";
 
 interface CommonActionIE {
   [functionName: string]: Function;
 }
-
-interface CreateActionAndParamsIE {
-  actionName: string;
-  keys: string[];
-}
-
 export const CommonAction: CommonActionIE = {
-  deleteUserToken: (keys?: string[]): void => {
+  deleteUserToken: async (keys?: string[]): Promise<string> => {
     if (_.isEmpty(keys)) {
-      redis.firstQueueItemRemove();
+      await redis.firstQueueItemRemove();
     } else {
-      _.forEach(keys, (key: string) => {
-        redis.remove(key);
+      _.forEach(keys, async (key: string) => {
+        await redis.remove(key);
       });
     }
+    
+    return responseController("call deleteUserToken");
   },
 };
 
-const createActionAndParams = (action: string): CreateActionAndParamsIE => {
-  const parse = action.split("/");
-
-  if (_.isEmpty(parse)) {
-    throw new Error(CommonEnum.ErrorStatus.SEND_WRONG_SQS_URL);
-  }
-
-  return {
-    actionName: parse.shift(),
-    keys: [...parse],
-  };
-};
-
-const actionController = (action: string): void => {
-  const { actionName, keys } = createActionAndParams(action);
-
+const actionController = ({
+  action,
+  params = ""
+} : {
+  action: string;
+  params?: string;
+}): string => {
+  const { actionName, keys }: CreateActionAndParamsIE = createActionItems(action, params);
+  
   if (_.isFunction(CommonAction[actionName])) {
     console.log(
       `Action Calls ${actionName} / key = ${_.isEmpty(keys) ? "없음" : keys}`,
     );
-    CommonAction[actionName](keys);
+
+    return CommonAction[actionName](keys);
   } else {
     throw new Error(CommonEnum.ErrorStatus.EMPTY_ACTION);
+  }
+};
+
+const responseController = (responseMessage: string) => {
+  if (env.IS_SEND_TO_SOCKET_SUBSCRIBE) {
+    ws.sendMessage(responseMessage);
+  } else {
+    return responseMessage;
   }
 };
 
