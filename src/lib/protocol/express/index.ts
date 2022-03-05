@@ -1,5 +1,6 @@
 import cors from "cors";
 import express, { Request, Response } from "express";
+import helmet from "helmet";
 import http from "http";
 import _ from "lodash";
 import path from "path";
@@ -22,6 +23,7 @@ const createExpress = (): express.Application => {
 
   const app: express.Application = express();
 
+  app.use(helmet());
   app.use(cors(corsConfig));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
