@@ -6,7 +6,7 @@ import path from "path";
 import actionController from "../../action";
 import env from "../../env";
 import middlewareController from "./middleware";
-import CommonWorkerRoutes, { CommonWorkerRouteIE } from "./routes";
+import CommonWorkerRoutes, { CommonWorkerRouteType } from "./routes";
 
 const expressController = (): http.Server => {
   const app: express.Application = createExpress();
@@ -32,7 +32,7 @@ const createExpress = (): express.Application => {
 };
 
 const createRoute = (app: express.Application): void => {
-  _.forEach(CommonWorkerRoutes, (CommonWorkerRoute: CommonWorkerRouteIE) => {
+  _.forEach(CommonWorkerRoutes, (CommonWorkerRoute: CommonWorkerRouteType) => {
     app[CommonWorkerRoute.method](
       CommonWorkerRoute.path,
       middlewareController,

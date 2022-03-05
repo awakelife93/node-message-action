@@ -3,12 +3,12 @@ import CommonEnum from "../enum";
 import env from "../env";
 import ws from "../protocol/ws";
 import redis from "../redis";
-import { CreateActionAndParamsIE, createActionItems } from "./preprocessor";
+import { createActionItems, ICreateActionAndParams } from "./preprocessor";
 
-interface CommonActionIE {
+interface ICommonAction {
   [functionName: string]: Function;
 }
-export const CommonAction: CommonActionIE = {
+export const CommonAction: ICommonAction = {
   deleteUserToken: async (keys?: string[]): Promise<string> => {
     if (_.isEmpty(keys)) {
       await redis.firstQueueItemRemove();
@@ -29,7 +29,7 @@ const actionController = ({
   action: string;
   params?: string;
 }): string => {
-  const { actionName, keys }: CreateActionAndParamsIE = createActionItems(action, params);
+  const { actionName, keys }: ICreateActionAndParams = createActionItems(action, params);
   
   if (_.isFunction(CommonAction[actionName])) {
     console.log(
@@ -45,9 +45,9 @@ const actionController = ({
 const responseController = (responseMessage: string) => {
   if (env.IS_SEND_TO_SOCKET_SUBSCRIBE) {
     ws.sendMessage(responseMessage);
-  } else {
-    return responseMessage;
   }
+  
+  return responseMessage;
 };
 
 export default actionController;
