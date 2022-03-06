@@ -5,7 +5,7 @@ import env from "../env";
 
 class Redis {
   private client!: redis.RedisClient;
-  
+
   connectRedis = async (): Promise<void> => {
     try {
       this.client = await redis.createClient({
@@ -16,24 +16,23 @@ class Redis {
       console.log(`connectRedis Connect Failed!! ${error}`);
     }
   };
-  
+
   get = (key: string): Promise<string | null> => {
     const _get = promisify(this.client.get).bind(this.client);
     return _get(key);
   };
 
-
   set = (key: string, value: string): void => {
     this.client.set(key, value);
   };
-  
+
   remove = (key: string): void => {
     if (!_.isEmpty(key)) {
       this.client.del(key);
       console.log(`============> redis remove ${key}`);
     }
   };
-  
+
   allKeys = (): Promise<string[]> => {
     const _keys = promisify(this.client.keys).bind(this.client);
     return _keys("*");

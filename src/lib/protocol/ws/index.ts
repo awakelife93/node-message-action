@@ -29,7 +29,7 @@ class WebSocket {
         this.sendMessage("{SubScribe Server Name} Completely Get Message");
 
         actionController({
-          action: message
+          action: message,
         });
       };
     }

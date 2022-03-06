@@ -15,7 +15,7 @@ export const createWSParams = (action: string): ICreateActionAndParams => {
 
   return {
     actionName: parse.shift() ?? "",
-    keys: [ ...parse ],
+    keys: [...parse],
   };
 };
 
@@ -23,20 +23,24 @@ export const createHttpParams = (params: string): string[] => {
   return params.split(env.PARAMS_SPLIT_TYPE);
 };
 
-export const createActionItems = (action: string, params: string): ICreateActionAndParams => {
-  let actionName = "", keys: string[] = [];
-  
+export const createActionItems = (
+  action: string,
+  params: string,
+): ICreateActionAndParams => {
+  let actionName = "",
+    keys: string[] = [];
+
   if (env.IS_SEND_TO_SOCKET_SUBSCRIBE) {
     const actionItem = createWSParams(action);
     actionName = actionItem.actionName;
-    keys = [ ...actionItem.keys ];
+    keys = [...actionItem.keys];
   } else {
     actionName = action;
-    keys = [ ...createHttpParams(params) ];
+    keys = [...createHttpParams(params)];
   }
-  
+
   return {
     actionName,
-    keys
-  }
+    keys,
+  };
 };
