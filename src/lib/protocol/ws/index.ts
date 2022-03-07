@@ -4,11 +4,18 @@ import actionController from "../../action";
 import env from "../../env";
 
 class WebSocket {
-  private readonly ws: ws.WebSocket = new ws.WebSocket(
-    `ws://${env.SQS_SERVER_END_POINT}`,
-  );
+  private ws!: ws.WebSocket;
 
-  connect = (): void => {
+  connect = async (): Promise<void> => {
+    await this.connectWs();
+    await this.openWs();
+  };
+
+  connectWs = () => {
+    this.ws = new ws.WebSocket(`ws://${env.SQS_SERVER_END_POINT}`);
+  };
+
+  openWs = (): void => {
     if (!_.isEmpty(this.ws)) {
       this.ws.onopen = (event: ws.Event): void => {
         this.sendMessage("{SubScribe Server Name} Completely Connection");
