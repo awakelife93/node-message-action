@@ -22,6 +22,9 @@
   "bugs": {
     "url": "https://github.com/awakelife93/sqs-subscribe/issues"
   },
+  "_moduleAliases": {
+    "@": "src"
+  },
   "homepage": "https://github.com/awakelife93/sqs-subscribe#readme",
   "dependencies": {
     "axios": "^0.24.0",
@@ -31,7 +34,8 @@
     "lodash": "^4.17.21",
     "redis": "^3.0.2",
     "ws": "^8.3.0",
-    "helmet": "^5.0.2"
+    "helmet": "^5.0.2",
+    "module-alias": "^2.2.2"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
