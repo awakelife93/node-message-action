@@ -1,5 +1,5 @@
-# SQS-SUBSCRIBE
-#### SQS Queue -> Subscribe Message
+# NODE-SQS-MESSAGE-ACTION
+#### SQS Queue -> Node-SQS -> Subscribe Message
 ##### Author 박현우
 ##### Create Date 2021.11.24
 #
@@ -12,8 +12,8 @@
 * express
 #
 ### 내용
-* [SQS-PUBLISHER](https://github.com/awakelife93/sqs-publisher)에게로 받은 메세지를 처리한다.
-* 받는 방식은, [SQS-PUBLISHER](https://github.com/awakelife93/sqs-publisher)의 처리방식에 따른다.
+* [NODE-SQS](https://github.com/awakelife93/node-sqs)에게로 받은 메세지를 처리한다.
+* 받는 방식은, [NODE-SQS](https://github.com/awakelife93/node-sqs)의 처리방식에 따른다.
 #
 ### todo
 * 구조 잡기
