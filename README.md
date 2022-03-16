@@ -12,8 +12,8 @@
 * express
 #
 ### 내용
-* [NODE-SQS](https://github.com/awakelife93/node-sqs)에게로 받은 메세지를 처리한다.
-* 받는 방식은, [NODE-SQS](https://github.com/awakelife93/node-sqs)의 처리방식에 따른다.
+* [NODE-SQS](https://github.com/awakelife93/node-sqs-pubsub)에게로 받은 메세지를 처리한다.
+* 받는 방식은, [NODE-SQS](https://github.com/awakelife93/node-sqs-pubsub)의 처리방식에 따른다.
 #
 ### todo
 * SQS가 아닌 상위 Message Queue 범위로 다시 잡기 (kafka message action도 처리할 수 있게끔...)
