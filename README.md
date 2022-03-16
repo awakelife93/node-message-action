@@ -16,8 +16,7 @@
 * 받는 방식은, [NODE-SQS](https://github.com/awakelife93/node-sqs)의 처리방식에 따른다.
 #
 ### todo
-* 구조 잡기
-* 실제 Message 템플릿 정해서 구현
+* SQS가 아닌 상위 Message Queue 범위로 다시 잡기 (kafka message action도 처리할 수 있게끔...)
 #
 ### 실행
 * (please confirm .env file / .env configuration is same src/lib/env file)
