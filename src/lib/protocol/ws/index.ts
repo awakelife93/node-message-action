@@ -1,7 +1,7 @@
 import _ from "lodash";
 import ws from "ws";
 import actionController from "../../action";
-import env from "../../env";
+import env from "../../config";
 
 class WebSocket {
   private ws!: ws.WebSocket;

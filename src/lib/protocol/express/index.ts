@@ -5,7 +5,7 @@ import http from "http";
 import _ from "lodash";
 import path from "path";
 import actionController from "../../action";
-import env from "../../env";
+import env from "../../config";
 import middlewareController from "./middleware";
 import CommonWorkerRoutes, { CommonWorkerRouteType } from "./routes";
 

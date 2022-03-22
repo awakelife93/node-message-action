@@ -1,4 +1,4 @@
-import env from "../env";
+import env from "../config";
 import expressController from "../protocol/express";
 import WebSocket from "../protocol/ws";
 import redis from "../redis";

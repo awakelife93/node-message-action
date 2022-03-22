@@ -1,6 +1,6 @@
 import _ from "lodash";
 import CommonEnum from "../enum";
-import env from "../env";
+import env from "../config";
 import ws from "../protocol/ws";
 import redis from "../redis";
 import { createActionItems, ICreateActionAndParams } from "./preprocessor";

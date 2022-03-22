@@ -1,7 +1,7 @@
 import _ from "lodash";
 import * as redis from "redis";
 import { promisify } from "util";
-import env from "../env";
+import env from "../config";
 
 class Redis {
   private client!: redis.RedisClient;
