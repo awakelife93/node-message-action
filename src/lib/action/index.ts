@@ -2,25 +2,8 @@ import _ from "lodash";
 import config from "../config";
 import CommonEnum from "../enum";
 import ws from "../protocol/ws";
-import redis from "../redis";
+import CommonAction from "./action";
 import { createActionItems, ICreateActionAndParams } from "./preprocessor";
-
-interface ICommonAction {
-  [functionName: string]: Function;
-}
-export const CommonAction: ICommonAction = {
-  deleteUserToken: async (keys?: string[]): Promise<string> => {
-    if (_.isEmpty(keys)) {
-      await redis.firstQueueItemRemove();
-    } else {
-      _.forEach(keys, async (key: string) => {
-        await redis.remove(key);
-      });
-    }
-
-    return responseController("call deleteUserToken");
-  },
-};
 
 const actionController = ({
   action,
@@ -45,7 +28,7 @@ const actionController = ({
   }
 };
 
-const responseController = (responseMessage: string) => {
+export const responseController = (responseMessage: string) => {
   if (config.IS_SEND_TO_SOCKET_SUBSCRIBE) {
     ws.sendMessage(responseMessage);
   }
