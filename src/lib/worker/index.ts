@@ -1,4 +1,4 @@
-import env from "../config";
+import config from "../config";
 import expressController from "../protocol/express";
 import WebSocket from "../protocol/ws";
 import redis from "../redis";
@@ -7,7 +7,7 @@ const work = async () => {
   // * connect redis
   await redis.connectRedis();
 
-  if (env.IS_SEND_TO_SOCKET_SUBSCRIBE) {
+  if (config.IS_SEND_TO_SOCKET_SUBSCRIBE) {
     // * connect web socket server
     console.log("StateFul Connect");
     await WebSocket.connect();

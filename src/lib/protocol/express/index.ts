@@ -5,7 +5,7 @@ import http from "http";
 import _ from "lodash";
 import path from "path";
 import actionController from "../../action";
-import env from "../../config";
+import config from "../../config";
 import middlewareController from "./middleware";
 import CommonWorkerRoutes, { CommonWorkerRouteType } from "./routes";
 
@@ -17,7 +17,7 @@ const expressController = (): http.Server => {
 const createExpress = (): express.Application => {
   const corsConfig = {
     // * subscribe servers origin
-    origin: [env.SQS_SERVER_END_POINT],
+    origin: [config.SQS_SERVER_END_POINT],
     credentials: true,
   };
 
@@ -54,9 +54,8 @@ const createRoute = (app: express.Application): void => {
 };
 
 const createExpressServer = (app: express.Application): http.Server => {
-  const port = env.SUB_SCRIBE_A_SERVER_PORT;
-  return app.listen(port, () => {
-    console.log(`SUB_SCRIBE_A_SERVER_PORT ${port}`);
+  return app.listen(config.port, () => {
+    console.log(`SUB_SCRIBE_A_SERVER_PORT ${config.port}`);
   });
 };
 

@@ -1,6 +1,6 @@
 import _ from "lodash";
+import config from "../config";
 import CommonEnum from "../enum";
-import env from "../config";
 import ws from "../protocol/ws";
 import redis from "../redis";
 import { createActionItems, ICreateActionAndParams } from "./preprocessor";
@@ -46,7 +46,7 @@ const actionController = ({
 };
 
 const responseController = (responseMessage: string) => {
-  if (env.IS_SEND_TO_SOCKET_SUBSCRIBE) {
+  if (config.IS_SEND_TO_SOCKET_SUBSCRIBE) {
     ws.sendMessage(responseMessage);
   }
 

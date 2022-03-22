@@ -1,7 +1,7 @@
 import _ from "lodash";
 import ws from "ws";
 import actionController from "../../action";
-import env from "../../config";
+import config from "../../config";
 
 class WebSocket {
   private ws!: ws.WebSocket;
@@ -12,7 +12,7 @@ class WebSocket {
   };
 
   connectWs = () => {
-    this.ws = new ws.WebSocket(`ws://${env.SQS_SERVER_END_POINT}`);
+    this.ws = new ws.WebSocket(`ws://${config.SQS_SERVER_END_POINT}`);
   };
 
   openWs = (): void => {

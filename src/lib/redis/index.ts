@@ -1,7 +1,7 @@
 import _ from "lodash";
 import * as redis from "redis";
 import { promisify } from "util";
-import env from "../config";
+import config from "../config";
 
 class Redis {
   private client!: redis.RedisClient;
@@ -9,8 +9,8 @@ class Redis {
   connectRedis = async (): Promise<void> => {
     try {
       this.client = await redis.createClient({
-        host: env.REDIS_HOST,
-        port: Number(env.REDIS_PORT),
+        host: config.REDIS_HOST,
+        port: Number(config.REDIS_PORT),
       });
     } catch (error: unknown) {
       console.log(`connectRedis Connect Failed!! ${error}`);
