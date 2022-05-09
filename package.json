@@ -1,5 +1,5 @@
 {
-  "name": "sqs-subscribe",
+  "name": "node-message-action",
   "version": "0.0.1",
   "description": "study message queue, sqs & publisher / subscribe pattern",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/awakelife93/sqs-subscribe.git"
+    "url": "git+https://github.com/awakelife93/node-message-action.git"
   },
   "keywords": [
     "sqs",
@@ -18,14 +18,14 @@
     "message"
   ],
   "author": "HyunwooPark",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/awakelife93/sqs-subscribe/issues"
+    "url": "https://github.com/awakelife93/node-message-action/issues"
   },
   "_moduleAliases": {
     "@": "src"
   },
-  "homepage": "https://github.com/awakelife93/sqs-subscribe#readme",
+  "homepage": "https://github.com/awakelife93/node-message-action#readme",
   "dependencies": {
     "axios": "^0.24.0",
     "cors": "^2.8.5",
