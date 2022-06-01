@@ -6,16 +6,16 @@ import config from "../../config";
 class WebSocket {
   private ws!: ws.WebSocket;
 
-  connect = async (): Promise<void> => {
+  async connect(): Promise<void> {
     await this.connectWs();
     await this.openWs();
-  };
+  }
 
-  connectWs = () => {
+  connectWs(): void {
     this.ws = new ws.WebSocket(`ws://${config.SQS_SERVER_END_POINT}`);
-  };
+  }
 
-  openWs = (): void => {
+  openWs(): void {
     if (!_.isEmpty(this.ws)) {
       this.ws.onopen = (event: ws.Event): void => {
         this.sendMessage("{SubScribe Server Name} Completely Connection");
@@ -25,9 +25,9 @@ class WebSocket {
         this.onError();
       };
     }
-  };
+  }
 
-  onMessage = (): void => {
+  onMessage(): void {
     if (!_.isEmpty(this.ws)) {
       this.ws.onmessage = (messageEvent: ws.MessageEvent): void => {
         // type ws.Data to string
@@ -40,9 +40,9 @@ class WebSocket {
         });
       };
     }
-  };
+  }
 
-  onError = (): void => {
+  onError(): void {
     if (!_.isEmpty(this.ws)) {
       this.ws.onerror = (errorEvent: ws.ErrorEvent): void => {
         console.log(`ErrorEvent ${errorEvent.error}`);
@@ -50,13 +50,13 @@ class WebSocket {
         this.sendMessage(`{SubScribe Server Name} Error ${errorEvent.message}`);
       };
     }
-  };
+  }
 
-  sendMessage = (message: string): void => {
+  sendMessage(message: string): void {
     if (!_.isEmpty(this.ws)) {
       this.ws.send(message);
     }
-  };
+  }
 }
 
 export default new WebSocket();

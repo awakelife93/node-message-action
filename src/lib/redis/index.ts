@@ -6,7 +6,11 @@ import config from "../config";
 class Redis {
   private client!: redis.RedisClient;
 
-  connectRedis = async (): Promise<void> => {
+  private allKeys(): Promise<string[]> {
+    return promisify(this.client.keys).bind(this.client)("*") ?? [];
+  }
+
+  async connectRedis(): Promise<void> {
     try {
       this.client = await redis.createClient({
         host: config.REDIS_HOST,
@@ -15,44 +19,28 @@ class Redis {
     } catch (error: unknown) {
       console.log(`connectRedis Connect Failed!! ${error}`);
     }
-  };
+  }
 
-  get = (key: string): Promise<string | null> => {
-    const _get = promisify(this.client.get).bind(this.client);
-    return _get(key);
-  };
-
-  set = (key: string, value: string): void => {
-    this.client.set(key, value);
-  };
-
-  remove = (key: string): void => {
-    if (!_.isEmpty(key)) {
-      this.client.del(key);
-      console.log(`============> redis remove ${key}`);
-    }
-  };
-
-  allKeys = (): Promise<string[]> => {
-    const _keys = promisify(this.client.keys).bind(this.client);
-    return _keys("*");
-  };
-
-  /**
-   * FIFO
-   * @returns {Promise<string[]>}
-   */
-  firstQueueItemRemove = async () => {
+  async firstQueueItemRemove() {
     const keys = await this.allKeys();
+    const firstKey = keys.shift();
 
-    if (!_.isEmpty(keys)) {
-      const queue = keys.shift();
-
-      if (!_.isUndefined(queue)) {
-        this.remove(queue);
-      }
+    if (!_.isUndefined(firstKey)) {
+      this.remove(firstKey);
     }
-  };
+  }
+
+  get(key: string): Promise<string | null> {
+    return promisify(this.client.get).bind(this.client)(key);
+  }
+
+  set(key: string, value: string): void {
+    this.client.set(key, value);
+  }
+
+  remove(key: string): void {
+    this.client.del(key);
+  }
 }
 
 export default new Redis();
