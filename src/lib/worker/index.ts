@@ -5,7 +5,7 @@ import redis from "../redis";
 
 const work = async () => {
   // * connect redis
-  await redis.connectRedis();
+  await redis.connect();
 
   if (config.IS_SEND_TO_SOCKET_SUBSCRIBE) {
     // * connect web socket server

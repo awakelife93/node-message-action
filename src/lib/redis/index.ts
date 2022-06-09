@@ -6,23 +6,23 @@ import config from "../config";
 class Redis {
   private client!: redis.RedisClient;
 
-  private allKeys(): Promise<string[]> {
-    return promisify(this.client.keys).bind(this.client)("*") ?? [];
+  private keys(pattern: string = "*"): Promise<string[]> {
+    return promisify(this.client.keys).bind(this.client)(pattern) ?? [];
   }
 
-  async connectRedis(): Promise<void> {
+  async connect(): Promise<void> {
     try {
       this.client = await redis.createClient({
         host: config.REDIS_HOST,
-        port: Number(config.REDIS_PORT),
+        port: config.REDIS_PORT,
       });
     } catch (error: unknown) {
-      console.log(`connectRedis Connect Failed!! ${error}`);
+      console.log(`Connect Redis Connect Failed!! ${error}`);
     }
   }
 
   async firstQueueItemRemove() {
-    const keys = await this.allKeys();
+    const keys = await this.keys();
     const firstKey = keys.shift();
 
     if (!_.isUndefined(firstKey)) {

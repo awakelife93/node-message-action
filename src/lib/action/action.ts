@@ -2,10 +2,10 @@ import _ from "lodash";
 import { responseController } from ".";
 import redis from "../redis";
 
-interface ICommonAction {
+type CommonAction = {
   [functionName: string]: Function;
 }
-const CommonAction: ICommonAction = {
+const commonAction: CommonAction = {
   deleteUserToken: async (keys: string[]): Promise<string> => {
     if (_.isEmpty(keys)) {
       await redis.firstQueueItemRemove();
@@ -19,4 +19,4 @@ const CommonAction: ICommonAction = {
   },
 };
 
-export default CommonAction;
+export default commonAction;

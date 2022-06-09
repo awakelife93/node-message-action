@@ -2,11 +2,11 @@ import _ from "lodash";
 import config from "../config";
 import CommonEnum from "../enum";
 
-export interface ICreateActionAndParams {
+export type CreateActionAndParams = {
   actionName: string;
   keys: string[];
 }
-export const createWSParams = (action: string): ICreateActionAndParams => {
+export const createWSParams = (action: string): CreateActionAndParams => {
   const parse = action.split(config.PARAMS_SPLIT_TYPE);
 
   if (_.isEmpty(parse)) {
@@ -26,7 +26,7 @@ export const createHttpParams = (params: string): string[] => {
 export const createActionItems = (
   action: string,
   params: string,
-): ICreateActionAndParams => {
+): CreateActionAndParams => {
   let actionName = "",
     keys: string[] = [];
 

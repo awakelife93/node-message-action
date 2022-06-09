@@ -2,8 +2,8 @@ import _ from "lodash";
 import config from "../config";
 import CommonEnum from "../enum";
 import ws from "../protocol/ws";
-import CommonAction from "./action";
-import { createActionItems, ICreateActionAndParams } from "./preprocessor";
+import commonAction from "./action";
+import { CreateActionAndParams, createActionItems } from "./preprocessor";
 
 const actionController = ({
   action,
@@ -12,23 +12,23 @@ const actionController = ({
   action: string;
   params?: string;
 }): string => {
-  const { actionName, keys }: ICreateActionAndParams = createActionItems(
+  const { actionName, keys }: CreateActionAndParams = createActionItems(
     action,
     params,
   );
 
-  if (_.isFunction(CommonAction[actionName])) {
+  if (_.isFunction(commonAction[actionName])) {
     console.log(
       `Action Calls ${actionName} / key = ${_.isEmpty(keys) ? "없음" : keys}`,
     );
 
-    return CommonAction[actionName](keys);
+    return commonAction[actionName](keys);
   } else {
     throw new Error(CommonEnum.ErrorStatus.EMPTY_ACTION);
   }
 };
 
-export const responseController = (responseMessage: string) => {
+export const responseController = (responseMessage: string): string => {
   if (config.IS_SEND_TO_SOCKET_SUBSCRIBE) {
     ws.sendMessage(responseMessage);
   }

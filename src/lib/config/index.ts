@@ -6,6 +6,6 @@ export default {
   IS_SEND_TO_SOCKET_SUBSCRIBE:
     process.env.IS_SEND_TO_SOCKET_SUBSCRIBE === "true" ? true : false,
   REDIS_HOST: process.env.REDIS_HOST ?? "127.0.0.1",
-  REDIS_PORT: process.env.REDIS_PORT ?? 6379,
+  REDIS_PORT: process.env.REDIS_PORT ? Number(process.env.REDIS_PORT) : 6379,
   PARAMS_SPLIT_TYPE: process.env.PARAMS_SPLIT_TYPE ?? "/",
 };
