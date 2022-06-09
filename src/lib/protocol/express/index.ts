@@ -39,15 +39,22 @@ const createRoute = (app: express.Application): void => {
       CommonWorkerRoute.path,
       middlewareController,
       async (request: Request, response: Response) => {
-        const params = request.body.params ?? "";
-        const action = request.route.path.replace("/", "");
-        const result = await actionController({
-          action,
-          params,
-        });
+        try {
+          const params = request.body.params ?? "";
+          const action = request.route.path.replace("/", "");
+          const result = await actionController({
+            action,
+            params,
+          });
 
-        response.status(200);
-        response.send(result);
+          response.status(200);
+          response.send(result);
+        } catch (error: any) {
+          // todo: error code 작성하기.
+          // todo: error 공통 타입 작성하기.
+          response.status(500);
+          response.send(error.message ?? error);
+        }
       },
     );
   });

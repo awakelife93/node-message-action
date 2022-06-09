@@ -21,7 +21,7 @@ class Redis {
     }
   }
 
-  async firstQueueItemRemove() {
+  async firstQueueItemRemove(): Promise<void> {
     const keys = await this.keys();
     const firstKey = keys.shift();
 
