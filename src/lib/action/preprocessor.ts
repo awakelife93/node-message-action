@@ -5,7 +5,7 @@ import CommonEnum from "../enum";
 export type CreateActionAndParams = {
   actionName: string;
   keys: string[];
-}
+};
 export const createWSParams = (action: string): CreateActionAndParams => {
   const parse = action.split(config.PARAMS_SPLIT_TYPE);
 

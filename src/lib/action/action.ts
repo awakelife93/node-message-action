@@ -4,7 +4,7 @@ import redis from "../redis";
 
 type CommonAction = {
   [functionName: string]: Function;
-}
+};
 const commonAction: CommonAction = {
   deleteUserToken: async (keys: string[]): Promise<string> => {
     if (_.isEmpty(keys)) {
