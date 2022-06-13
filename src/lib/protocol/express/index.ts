@@ -61,8 +61,8 @@ const createRoute = (app: express.Application): void => {
 };
 
 const createExpressServer = (app: express.Application): http.Server => {
-  return app.listen(config.port, () => {
-    console.log(`SUB_SCRIBE_A_SERVER_PORT ${config.port}`);
+  return app.listen(config.PORT, () => {
+    console.log(`SUB_SCRIBE_A_SERVER_PORT ${config.PORT}`);
   });
 };
 
