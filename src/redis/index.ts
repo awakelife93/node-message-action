@@ -1,5 +1,5 @@
 import _ from "lodash";
-import * as redis from "redis";
+import redis from "redis";
 import { promisify } from "util";
 import config from "../config";
 
