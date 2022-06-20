@@ -4,7 +4,7 @@ import { promisify } from "util";
 import config from "../config";
 
 class Redis {
-  private client!: redis.RedisClient;
+  private client: redis.RedisClient;
 
   private keys(pattern: string = "*"): Promise<string[]> {
     return promisify(this.client.keys).bind(this.client)(pattern) ?? [];
