@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { responseController } from ".";
-import redis from "../redis";
+import redis from "../databases/redis";
 
 type CommonAction = {
   [functionName: string]: Function;
