@@ -4,7 +4,7 @@ import { promisify } from "util";
 import config from "../config";
 
 class Redis {
-  private client: redis.RedisClient;
+  private readonly client: redis.RedisClient;
 
   constructor() {
     this.client = redis.createClient({
