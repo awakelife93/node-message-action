@@ -1,6 +1,6 @@
 import _ from "lodash";
+import CommonEnum from "../common/enum";
 import config from "../config";
-import CommonEnum from "../enum";
 
 export type CreateActionAndParams = {
   actionName: string;

@@ -1,6 +1,6 @@
 import _ from "lodash";
+import CommonEnum from "../common/enum";
 import config from "../config";
-import CommonEnum from "../enum";
 import ws from "../protocol/ws";
 import commonAction from "./action";
 import { CreateActionAndParams, createActionItems } from "./preprocessor";
